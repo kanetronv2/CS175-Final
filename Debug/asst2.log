@@ -1,7 +1,7 @@
-﻿Build started 12/10/2011 12:00:05 AM.
+﻿Build started 12/10/2011 10:08:28 PM.
      1>Project "C:\Users\HTPC\Documents\cs175\Final Project\CS175-Final\asst2.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Creating ".\Debug\asst2.unsuccessfulbuild" because "AlwaysCreate" was specified.
+         Touching ".\Debug\asst2.unsuccessfulbuild".
        ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt asst4.cpp
          asst4.cpp
@@ -27,4 +27,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.96
+Time Elapsed 00:00:05.09

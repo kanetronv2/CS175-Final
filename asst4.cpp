@@ -113,6 +113,9 @@ bool g_PickState = false;
 
 //CAMERA PARAMETERS
 static float g_focalLength = .05;
+static float g_aperture = 1.4;
+static float g_circleOfConfusion = 0.019;
+static int g_ApertureCounter = 0;
 
 ///////////////// END OF G L O B A L S //////////////////////////////////////////////////
 
@@ -350,6 +353,21 @@ static void motion(const int x, const int y) {
   g_mouseClickY = g_windowHeight - y - 1;
 }
 
+static void calculateDOF(RigTForm rbt){
+	Cvec3 c = rbt.getTranslation();
+	float hyperfocalDistance = pow(g_focalLength,2)/(g_circleOfConfusion * g_aperture/g_focalLength) + g_focalLength;
+	float nearPlane = c(3) * (hyperfocalDistance - g_focalLength)/(hyperfocalDistance + c(3) - 2 * g_focalLength);
+	float farPlane = c(3) * (hyperfocalDistance - g_focalLength)/(hyperfocalDistance - c(3));
+
+	if(c(3) > farPlane || c(3) < nearPlane){
+
+	}
+
+	glFlush();
+    writePpmScreenshot(g_windowWidth, g_windowHeight, "snapshot.ppm");
+
+}
+
 static void mouse(const int button, const int state, const int x, const int y) {
   g_mouseClickX = x;
   g_mouseClickY = g_windowHeight - y - 1;  // conversion from GLUT window-coordinate-system to OpenGL window-coordinate-system
@@ -420,6 +438,42 @@ static void keyboard(const unsigned char key, const int x, const int y) {
 	 g_PickState = !g_PickState;
 	 cout << "Picking Mode On" << endl;
 	 break;
+  case 'a':
+	  g_ApertureCounter++;
+	  switch(g_ApertureCounter%10){
+		case 0:
+			g_aperture = 1.4;
+			break;
+		case 1:
+			g_aperture = 2;
+			break;
+		case 2:
+			g_aperture = 2.8;
+			break;
+		case 3:
+			g_aperture = 4;
+			break;
+		case 4:
+			g_aperture = 5.6;
+			break;
+		case 5:
+			g_aperture = 8;
+			break;
+		case 6:
+			g_aperture = 11;
+			break;
+		case 7:
+			g_aperture = 16;
+			break;
+		case 8:
+			g_aperture = 22;
+			break;
+		case 9:
+			g_aperture = 32;
+			break;
+	  }
+	  cout << "F-number is: f/" << g_aperture << endl;
+	  break;
   }
   glutPostRedisplay();
 }
@@ -552,11 +606,11 @@ static void initScene() {
   g_groundNode->addChild(shared_ptr<SgGeometryShapeNode>(
                            new SgGeometryShapeNode(ground, Cvec3(0.1, 0.95, 0.1))));
 
-  g_robot1Node.reset(new SgRbtNode(RigTForm(Cvec3(-2, 1, 0))));
-  g_robot2Node.reset(new SgRbtNode(RigTForm(Cvec3(2, 1, 0))));
+  //g_robot1Node.reset(new SgRbtNode(RigTForm(Cvec3(-2, 1, 0))));
+  //g_robot2Node.reset(new SgRbtNode(RigTForm(Cvec3(2, 1, 0))));
 
-  constructRobot(g_robot1Node, Cvec3(1, 0, 0)); // a Red robot
-  constructRobot(g_robot2Node, Cvec3(0, 0, 1)); // a Blue robot
+  //constructRobot(g_robot1Node, Cvec3(1, 0, 0)); // a Red robot
+  //constructRobot(g_robot2Node, Cvec3(0, 0, 1)); // a Blue robot
 
   g_world->addChild(g_skyNode);
   g_world->addChild(g_groundNode);
