@@ -92,29 +92,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="asst4.cpp" />
+    <ClCompile Include="asst3.cpp" />
     <ClCompile Include="glsupport.cpp" />
-    <ClCompile Include="picker.cpp" />
     <ClCompile Include="ppm.cpp" />
-    <ClCompile Include="scenegraph.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cvec.h" />
     <ClInclude Include="geometry.h" />
     <ClInclude Include="glsupport.h" />
     <ClInclude Include="matrix4.h" />
-    <ClInclude Include="picker.h" />
     <ClInclude Include="ppm.h" />
     <ClInclude Include="quat.h" />
     <ClInclude Include="rigtform.h" />
-    <ClInclude Include="scenegraph.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\basic-gl2.vshader" />
     <None Include="shaders\basic-gl3.vshader" />
     <None Include="shaders\diffuse-gl2.fshader" />
     <None Include="shaders\diffuse-gl3.fshader" />
-    <None Include="shaders\pick-gl3.fshader" />
     <None Include="shaders\solid-gl2.fshader" />
     <None Include="shaders\solid-gl3.fshader" />
   </ItemGroup>
