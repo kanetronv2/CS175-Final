@@ -11,7 +11,7 @@ using namespace std;
 
 static Scene scene;
 static Camera camera;
-static int focaldepth = 3;
+static int samples = 256;
 
 // camera position
 static Cvec3 cameraPosition;
@@ -19,6 +19,11 @@ static Cvec3 cameraPosition;
 // this is computed from camera.fovY
 static double pixelSize;
 
+// lens parameters
+static int focaldepth = 3;
+static double focallength = 50;
+static double aperture = 2.8;
+static double coc = .029; // circle of confusion for 35mm camera based on d/1500 where d = diagonal size of camera sensor
 
 // (x,y) are between (0,0) and (camera.width, camera.height)
 static Ray computeScreenRay(const double x, const double y) {
@@ -43,19 +48,30 @@ static float haltonNumber(const int i) {
   return re;
 }
 
+// calculates area of the camera's iris
+static double calcApArea (double focallength, double aperture)
+{
+	return (CS175_PI * pow((focallength / (2 * aperture)), 2));
+}
 
 int main() {
   // parse the input
   parseSceneFile("scene.txt", camera, scene);
 
+  // random seed
+  srand( time(NULL) );
+
+  // lens parameters
+  int area = (int) calcApArea(focallength, aperture); // area of the camera's iris
+
   cameraPosition = Cvec3(0,0,0);                // we asume that the camera is at (0,0,0)
   pixelSize = 2. * sin(0.5 * camera.fovY * CS175_PI / 180.) / static_cast <double> (camera.height);
 
   // we precompute the multiresolution sampling pattern for a pixel
-  vector<Cvec3> sampleLocation(camera.samples);
-  for (int i = 0; i < camera.samples; ++i) {
-    sampleLocation[i][0] = (haltonNumber <17> (19836 + i))/10.f;   // some pseudo-random number that is well-distributed for sampling
-    sampleLocation[i][1] = (haltonNumber <7> (1836 + i))/10.f;     // some pseudo-random number that is well-distributed for sampling
+  vector<Cvec3> sampleLocation(samples);
+  for (int i = 0; i < samples; ++i) {
+    sampleLocation[i][0] = (haltonNumber <17> (19836 + i));   // some pseudo-random number that is well-distributed for sampling
+    sampleLocation[i][1] = (haltonNumber <7> (1836 + i));     // some pseudo-random number that is well-distributed for sampling
   }
 
   cerr << "Rendering... ";
@@ -63,15 +79,16 @@ int main() {
   for (int y = 0; y < camera.height; ++y) {
     for (int x = 0; x < camera.width; ++x) {
       Cvec3 color(0,0,0);
-      for (int i = 0; i < camera.samples; ++i) {
+      for (int i = 0; i < samples; ++i) {
 		  Ray screenRay = computeScreenRay(x, camera.height - 1 - y);
 		  Cvec3 focusPoint = cameraPosition + screenRay.direction * focaldepth;
-		  Cvec3 newPos = cameraPosition + Cvec3(sampleLocation[i][0], sampleLocation[i][1], 0);
+		  // Cvec3 newPos = cameraPosition + Cvec3(sampleLocation[i][0], sampleLocation[i][1], 0);
+		  Cvec3 newPos = cameraPosition + Cvec3((rand() % area)/500., (rand() % area)/500., 0);
 		  Cvec3 newDir = (focusPoint - newPos).normalize();
 		  Ray newRay(newPos, newDir);
 		  color += rayTrace(scene, newRay);
       }
-      color *= (1. / static_cast <double> (camera.samples));
+      color *= (1. / static_cast <double> (samples));
       PackedPixel& p = frameBuffer[x + y*camera.width];
       p.r = static_cast <unsigned char> (min(255., max(0., 255.*color[0])));
       p.g = static_cast <unsigned char> (min(255., max(0., 255.*color[1])));
@@ -85,4 +102,3 @@ int main() {
 
   return 0;
 }
-

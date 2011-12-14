@@ -22,7 +22,7 @@ CAMERA
 FovY		60
 ScreenWidth 	640
 ScreenHeight	480
-NumSamples	128
+NumSamples	16
 
 LIGHT
 Position	1	5	1
@@ -44,8 +44,8 @@ Exponent	4
 Reflectivity	.6
 
 SPHERE
-Center		2.5 0 -8
-Radius		0.6
+Center		2.5 0 -6
+Radius		0.5
 Ambient		0.5	0.5	0.0
 Diffuse		0.1	0.7	1.0
 Specular	1.0	1.0	1.0
@@ -55,7 +55,7 @@ Reflectivity	0.4
 
 SPHERE
 Center		1.75 .2 -5
-Radius		.6
+Radius		.5
 Ambient		0.5	0.5	0.0
 Diffuse		0.1	0.7	1.0
 Specular	1.0	1.0	1.0
@@ -64,7 +64,7 @@ Reflectivity	0.4
 
 SPHERE
 Center		1. .4 -4
-Radius		.6
+Radius		.5
 Ambient		0.5	0.5	0.0
 Diffuse		0.1	0.7	1.0
 Specular	1.0	1.0	1.0
@@ -73,7 +73,7 @@ Reflectivity	0.4
 
 SPHERE
 Center		.25 .6 -3
-Radius		.6
+Radius		.5
 Ambient		0.5	0.5	0.0
 Diffuse		0.1	0.7	1.0
 Specular	1.0	1.0	1.0
@@ -82,7 +82,7 @@ Reflectivity	0.4
 
 SPHERE
 Center		-.5 .8 -2
-Radius		.6
+Radius		.5
 Ambient		0.5	0.5	0.0
 Diffuse		0.1	0.7	1.0
 Specular	1.0	1.0	1.0
