@@ -1,0 +1,121 @@
+#include <cmath>
+#include <cassert>
+
+#include "surface.h"
+#include "scene.h"
+#include "raycast.h"
+
+using namespace std;
+
+inline Cvec3 getBounce(const Cvec3& v, const Cvec3& n) {
+  // TODO:
+  //
+  // erase the line below and, instead, compute and return the bounce of vector v with respect to plane with normal n.
+  // B(w) = 2(w · n)n − w
+
+  return (n*(dot(v,n)*2)) - v;
+}
+
+// This is the function that simply goes through all the geometry and
+// finds the closest intersection in the positive side of the ray
+Intersection rayCast(const Scene& scene, const Ray& ray) {
+  Intersection in;
+  in.lambda = -1;
+  for (size_t i = 0; i < scene.surfaces.size(); ++i) {
+    const double lambda = scene.surfaces[i]->intersect(ray);
+
+    if (lambda > 0 && (in.lambda < 0 || lambda < in.lambda)) {
+      in.lambda = lambda;
+      in.surfaceId = i;
+    }
+  }
+  return in;
+}
+
+
+Cvec3 shadeLight(const Scene& scene, const Light& light, const Surface& surface, const Cvec3& viewDirection, const Cvec3& point, const Cvec3& normal, const int level) {
+  // TODO:
+  //
+  // insert here a call to cast a "shadow ray", and if there is something
+  // occluding the light then return Cvec3(0,0,0) as the answer (no light
+  // contribution) otherwise execute the rest of the function.
+  //
+  // Note that, when creating the shadow ray from point "newPoint=point"
+  // in direction "newDirection", "newPoint" shouldn't be
+  // "newPoint = point", but rather "newPoint = point + newDirection*CS175_EPS"...
+  // to make the starting point of the ray slightly off the surface so it
+  // won't "hit" the surface that it starts from.
+
+  const Cvec3& lightDirection = (light.position - point).normalize();
+  const Cvec3& lightIntensity = light.intensity;
+  const Cvec3 bounceDirection = getBounce(lightDirection, normal);
+
+  // shadow ray
+  Cvec3 newPoint = point + lightDirection*CS175_EPS;
+  Ray shadowRay(newPoint, lightDirection);
+  if (rayCast(scene, shadowRay).lambda != (0-1))
+    return Cvec3(0,0,0);
+
+  // end shadow ray
+
+  const Cvec3& kd = surface.getDiffuseCoef();
+  const Cvec3& ks = surface.getSpecularCoef();
+  const int n = surface.getExponentSpecular();
+
+  const Cvec3 diffuse = mulElemWise(kd, lightIntensity) * max(0., dot(normal, lightDirection));
+  const Cvec3 specular = mulElemWise(ks, lightIntensity) * pow(max(0., dot(bounceDirection, viewDirection)), n);
+
+  return diffuse + specular;
+}
+
+
+
+Cvec3 shade(const Scene& scene, const int surfaceId, const Ray& ray, const Intersection& in, const int level) {
+  const Surface& surface = *scene.surfaces[surfaceId];
+  const Cvec3 point = ray.point + ray.direction * in.lambda;       // the intersection point
+  const Cvec3 normal = surface.computeNormal(point);              // the normal at the intersection point
+  const Cvec3 viewDirection = (ray.point - point).normalize();       // the view direction goes from the point to the beginning of the ray (normalized)
+  const Cvec3& ka = surface.getAmbientCoef();
+
+  // TODO:
+  //
+  // * if the object (surface) is a mirror, then you can check that here and simply do:
+  //
+  //   compute the new ray direction by calling "getBounce(...)"
+  //
+  //   then you can compute the color "coming from the mirror direction" by calling
+  //     "rayTrace(light, scene, Ray(newPoint, newDirection, level+1);"
+  //   then blend in between the "mirror color" and the color computed by the rest of this function.
+  //   use the constant surface.getMirrorCoef (between 0 and 1) as blending coefficient.
+  //
+  // * if level exceeds some threshold then don't do a mirror reflection and just return Cvec3(0,0,0);
+  //
+  // * note that "newPoint" shouldn't be "newPoint = point", but rather
+  //   "newPoint = point + newDirection * CS175_EPS"...
+  //   to make the starting point of the ray slightly off the surface so it won't "hit" the surface
+  //   that it starts from.
+
+  assert(abs(dot(normal, normal) - 1) < CS175_EPS);    // we check that the normal is pre-normalized
+
+  Cvec3 outputColor(0,0,0);
+  for (size_t i = 0; i < scene.lights.size(); ++i) {
+    outputColor += mulElemWise(ka, scene.lights[i].intensity);
+    if (dot(scene.lights[i].position - point, normal) > 0) {
+      outputColor += shadeLight(scene, scene.lights[i], surface, viewDirection, point, normal, level);
+    }
+  }
+
+  return outputColor;
+}
+
+
+
+Cvec3 rayTrace(const Scene& scene, const Ray& ray, const int level) {
+
+  const Intersection in = rayCast(scene, ray);                // compute the intersection point
+
+  if (in.lambda < 0)
+    return Cvec3(0,0,0);                    // if no intersection => return black (background color)
+
+  return shade(scene, in.surfaceId, ray, in, level);         // ..otherwise compute shade and return that color
+}
