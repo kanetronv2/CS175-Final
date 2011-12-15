@@ -11,7 +11,7 @@ using namespace std;
 
 static Scene scene;
 static Camera camera;
-static int fl = 12;
+static int fl = 16;
 
 // camera position
 static Cvec3 cameraPosition;
@@ -89,7 +89,12 @@ int main() {
     for (int x = 0; x < camera.width; ++x) {
       Cvec3 color(0,0,0);
       for (int i = 0; i < camera.samples; ++i) {
-			  color += rayTrace(scene, computeScreenRay(x + i, camera.height - 1 - y + i));
+		  Ray screenRay = computeScreenRay(x, camera.height - 1 - y);
+		  Cvec3 focusPoint = cameraPosition + screenRay.direction * fl;
+		  Cvec3 newPos = cameraPosition + Cvec3(sampleLocation[i][0], sampleLocation[i][1], 0);
+		  Cvec3 newDir = (focusPoint - newPos).normalize();
+		  Ray newRay(newPos, newDir);
+		  color += rayTrace(scene, newRay);
       }
       color *= (1. / static_cast <double> (camera.samples));
       PackedPixel& p = frameBuffer[x + y*camera.width];
