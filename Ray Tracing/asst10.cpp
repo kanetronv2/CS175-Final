@@ -22,27 +22,28 @@ static double pixelSize;
 
 // (x,y) are between (0,0) and (camera.width, camera.height)
 static Ray computeScreenRay(const double x, const double y) {
-  const Cvec3 pixelPosition((x - camera.width/2) * pixelSize, (y - camera.height/2) * pixelSize, -1);
-  
+   Cvec3 pixelPosition((x - camera.width/2) * pixelSize, (y - camera.height/2) * pixelSize, -1);
+
   // generate point in focus
-  Cvec3& pointinfocus = cameraPosition + (pixelPosition * 3);
-  
+  Cvec3 pointinfocus = cameraPosition + (pixelPosition * .00001);
+
   // initialize random seed and point on lens
   srand ( time(NULL) );
-  int randx = (rand() % 300) + 1;
-  int randy = (rand() % 300) + 1;
+  double randx = ((rand() % 200) + 1)/10000000000.;
+  double randy = ((rand() % 200) + 1)/10000000000.;
   
   // displace ray origin by random point
-  Cvec3& origin = cameraPosition;
-  if(rand() % )
+  //Cvec3 origin = cameraPosition;
+
+  if(rand() % 2)
 	cameraPosition[0] += randx;
   else
 	cameraPosition[0] -= randx;
-  if(rand() % )
+  if(rand() % 2)
 	cameraPosition[1] += randy;
   else
 	cameraPosition[1] -= randy;
-	
+
   // new direction
   pixelPosition = (pointinfocus - cameraPosition).normalize();
   
