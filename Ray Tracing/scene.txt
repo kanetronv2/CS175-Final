@@ -38,10 +38,10 @@ PLANE
 Point		0	-1.0	0
 Normal		0	1	0
 Ambient		0.1	0.1	0.1
-Diffuse		0.62	0.12	0.43
+Diffuse		1	1	1
 Specular	0.6	0.6	0.6
 Exponent	4
-Reflectivity	0
+Reflectivity	.6
 
 SPHERE
 Center		2.5 0 -8

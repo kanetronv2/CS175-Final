@@ -54,8 +54,8 @@ int main() {
   // we precompute the multiresolution sampling pattern for a pixel
   vector<Cvec3> sampleLocation(camera.samples);
   for (int i = 0; i < camera.samples; ++i) {
-    sampleLocation[i][0] = haltonNumber <17> (19836 + i);   // some pseudo-random number that is well-distributed for sampling
-    sampleLocation[i][1] = haltonNumber <7> (1836 + i);     // some pseudo-random number that is well-distributed for sampling
+    sampleLocation[i][0] = (haltonNumber <17> (19836 + i))/10.f;   // some pseudo-random number that is well-distributed for sampling
+    sampleLocation[i][1] = (haltonNumber <7> (1836 + i))/10.f;     // some pseudo-random number that is well-distributed for sampling
   }
 
   cerr << "Rendering... ";
