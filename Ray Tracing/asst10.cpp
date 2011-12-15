@@ -11,7 +11,7 @@ using namespace std;
 
 static Scene scene;
 static Camera camera;
-static int fl = 16;
+static int focaldepth = 3;
 
 // camera position
 static Cvec3 cameraPosition;
@@ -25,31 +25,6 @@ static Ray computeScreenRay(const double x, const double y) {
   Cvec3 pixelPosition((x - camera.width/2) * pixelSize, (y - camera.height/2) * pixelSize, -1);
   return Ray(cameraPosition, pixelPosition);
 }
-
-// (x,y) are between (0,0) and (camera.width, camera.height)
-/*static Ray computeScreenRay(const double x, const double y) {
- Cvec3 pixelPosition((x - camera.width/2) * pixelSize, (y - camera.height/2) * pixelSize, -1);
- 
- // aperture offset
-       srand ( time(NULL) );
-       double randx = (rand() % 500) / 1000000000.;
-       double randy = (rand() % 500) / 1000000000.;
-       cameraPosition[0] += randx;
-       cameraPosition[1] += randy;
-
- // scale ray by focal depth
- pixelPosition *= 12.;
- 
- // subtract the aperture offset from the ray's direction
- pixelPosition[0] -= randx;
- pixelPosition[1] -= randy;  
- 
- // normalize the direction
- Cvec3 newDir = pixelPosition.normalize();
- 
- return Ray(cameraPosition, newDir);
-}*/
-
 
 // This function is basically a random-number generator (that generates samples that are well-distributed for sampling (Halton numbers))
 template <int BASE>
@@ -90,7 +65,7 @@ int main() {
       Cvec3 color(0,0,0);
       for (int i = 0; i < camera.samples; ++i) {
 		  Ray screenRay = computeScreenRay(x, camera.height - 1 - y);
-		  Cvec3 focusPoint = cameraPosition + screenRay.direction * fl;
+		  Cvec3 focusPoint = cameraPosition + screenRay.direction * focaldepth;
 		  Cvec3 newPos = cameraPosition + Cvec3(sampleLocation[i][0], sampleLocation[i][1], 0);
 		  Cvec3 newDir = (focusPoint - newPos).normalize();
 		  Ray newRay(newPos, newDir);

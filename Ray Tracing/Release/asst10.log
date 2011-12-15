@@ -1,4 +1,4 @@
-﻿Build started 12/15/2011 11:33:31 AM.
+﻿Build started 12/15/2011 3:49:53 PM.
      1>Project "C:\Users\HTPC\Documents\cs175\Final Project\CS175-Final\Ray Tracing\asst10.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Release\asst10.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -22,4 +22,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.16
+Time Elapsed 00:00:03.50
