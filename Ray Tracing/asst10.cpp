@@ -11,7 +11,7 @@ using namespace std;
 
 static Scene scene;
 static Camera camera;
-static int fl = 50;
+static int fl = 12;
 
 // camera position
 static Cvec3 cameraPosition;
@@ -22,33 +22,33 @@ static double pixelSize;
 
 // (x,y) are between (0,0) and (camera.width, camera.height)
 static Ray computeScreenRay(const double x, const double y) {
-   Cvec3 pixelPosition((x - camera.width/2) * pixelSize, (y - camera.height/2) * pixelSize, -1);
-
-  // generate point in focus
-  Cvec3 pointinfocus = cameraPosition + (pixelPosition * .00001);
-
-  // initialize random seed and point on lens
-  srand ( time(NULL) );
-  double randx = ((rand() % 200) + 1)/10000000000.;
-  double randy = ((rand() % 200) + 1)/10000000000.;
-  
-  // displace ray origin by random point
-  //Cvec3 origin = cameraPosition;
-
-  if(rand() % 2)
-	cameraPosition[0] += randx;
-  else
-	cameraPosition[0] -= randx;
-  if(rand() % 2)
-	cameraPosition[1] += randy;
-  else
-	cameraPosition[1] -= randy;
-
-  // new direction
-  pixelPosition = (pointinfocus - cameraPosition).normalize();
-  
+  Cvec3 pixelPosition((x - camera.width/2) * pixelSize, (y - camera.height/2) * pixelSize, -1);
   return Ray(cameraPosition, pixelPosition);
 }
+
+// (x,y) are between (0,0) and (camera.width, camera.height)
+/*static Ray computeScreenRay(const double x, const double y) {
+ Cvec3 pixelPosition((x - camera.width/2) * pixelSize, (y - camera.height/2) * pixelSize, -1);
+ 
+ // aperture offset
+       srand ( time(NULL) );
+       double randx = (rand() % 500) / 1000000000.;
+       double randy = (rand() % 500) / 1000000000.;
+       cameraPosition[0] += randx;
+       cameraPosition[1] += randy;
+
+ // scale ray by focal depth
+ pixelPosition *= 12.;
+ 
+ // subtract the aperture offset from the ray's direction
+ pixelPosition[0] -= randx;
+ pixelPosition[1] -= randy;  
+ 
+ // normalize the direction
+ Cvec3 newDir = pixelPosition.normalize();
+ 
+ return Ray(cameraPosition, newDir);
+}*/
 
 
 // This function is basically a random-number generator (that generates samples that are well-distributed for sampling (Halton numbers))
@@ -71,7 +71,7 @@ static float haltonNumber(const int i) {
 
 int main() {
   // parse the input
-  parseSceneFile("scene2.txt", camera, scene);
+  parseSceneFile("scene.txt", camera, scene);
 
   cameraPosition = Cvec3(0,0,0);                // we asume that the camera is at (0,0,0)
   pixelSize = 2. * sin(0.5 * camera.fovY * CS175_PI / 180.) / static_cast <double> (camera.height);
@@ -89,7 +89,7 @@ int main() {
     for (int x = 0; x < camera.width; ++x) {
       Cvec3 color(0,0,0);
       for (int i = 0; i < camera.samples; ++i) {
-        color += rayTrace(scene, computeScreenRay(x + sampleLocation[i][0], camera.height - 1 - y + sampleLocation[i][1]));
+			  color += rayTrace(scene, computeScreenRay(x + i, camera.height - 1 - y + i));
       }
       color *= (1. / static_cast <double> (camera.samples));
       PackedPixel& p = frameBuffer[x + y*camera.width];

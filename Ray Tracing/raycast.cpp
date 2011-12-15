@@ -89,7 +89,7 @@ Cvec3 rayTrace(const Scene& scene, const Ray& ray, const int level) {
   const Intersection in = rayCast(scene, ray);                // compute the intersection point
 
   if (in.lambda < 0 || level == 5)
-    return Cvec3(1,1,1);                    // if no intersection => return black (background color)
+    return Cvec3(0,0,0);                    // if no intersection => return black (background color)
 
   return shade(scene, in.surfaceId, ray, in, level);         // ..otherwise compute shade and return that color
 }

@@ -1,0 +1,64 @@
+
+__Notes about the format of the file: ______________________________
+
+You may insert random comments like these, but such comments
+may not include the tokens 'CAMERA', 'PLANE', 'TRIANGLE', 'SPHERE', 
+or 'LIGHT'.  These are reserved tags for describing the scene.  
+After such tags are specified, the order and number of arguments 
+directly proceeding them are not optional.  
+
+The subtags used to give meaning to the following sets of numbers
+are not actually used by the parser.  The parser assumes the subtags
+appear in the exact order given below.  The only purpose of the
+subtags is to aid human readability.
+
+In between blocks, you may again write comments.  
+_____________________________________________________________________
+
+
+== Describe camera and lights =======================
+
+CAMERA
+FovY		60
+ScreenWidth 	640
+ScreenHeight	480
+NumSamples	8
+
+LIGHT
+Position	1	5	1
+Intensity	1	1	1
+
+
+== Now describe the scene ============================
+
+-- The next scene is an example, feel free to delete the parts that are not needed or add additional blocks for more geometry ---
+
+
+PLANE		
+Point		0	-1.0	0
+Normal		0	1	0
+Ambient		0.1	0.1	0.1
+Diffuse		0.62	0.12	0.43
+Specular	0.6	0.6	0.6
+Exponent	4
+Reflectivity	0
+
+
+TRIANGLE
+Vertex 		-1.0	0.2	-3
+Vertex 		-0.1	2	-3.2
+Vertex		-1.1	1.2	-3.1
+Ambient		0.01	0.01	0.01
+Diffuse		0.2	1.0	0.52
+Specular	0.2	0.2	0.2
+Exponent	7
+Reflectivity	0
+
+SPHERE
+Center		0 0 -3
+Radius		0.6
+Ambient		0.5	0.5	0.0
+Diffuse		0.1	0.7	1.0
+Specular	1.0	1.0	1.0
+Exponent	2
+Reflectivity	0.8
