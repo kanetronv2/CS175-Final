@@ -22,9 +22,9 @@ CAMERA
 FovY		60
 ScreenWidth 	640
 ScreenHeight	480
-NumSamples	1024
+NumSamples	128
 FocalLength	50
-Aperture	16.0
+Aperture	2.8
 FocalDepth	3
 CoC	.029
 
