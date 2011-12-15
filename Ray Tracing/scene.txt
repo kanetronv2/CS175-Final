@@ -16,18 +16,25 @@ In between blocks, you may again write comments.
 _____________________________________________________________________
 
 
-== Describe camera and lights =======================
+== Describe camera and lights and lens =======================
 
 CAMERA
 FovY		60
 ScreenWidth 	640
 ScreenHeight	480
-NumSamples	16
+NumSamples	1024
+FocalLength	50
+Aperture	16.0
+FocalDepth	3
+CoC	.029
 
 LIGHT
 Position	1	5	1
-Intensity	1	1	1
+Intensity	.5	.5	.5
 
+LIGHT
+Position	3	3	-1
+Intensity	.5	.5	.5
 
 == Now describe the scene ============================
 
@@ -47,7 +54,7 @@ SPHERE
 Center		2.5 0 -6
 Radius		0.5
 Ambient		0.5	0.5	0.0
-Diffuse		0.1	0.7	1.0
+Diffuse		0.7	0.1	.1
 Specular	1.0	1.0	1.0
 Exponent	2
 Reflectivity	0.4
@@ -57,7 +64,7 @@ SPHERE
 Center		1.75 .2 -5
 Radius		.5
 Ambient		0.5	0.5	0.0
-Diffuse		0.1	0.7	1.0
+Diffuse		0.7	0.1	.1
 Specular	1.0	1.0	1.0
 Exponent	2
 Reflectivity	0.4
@@ -66,7 +73,7 @@ SPHERE
 Center		1. .4 -4
 Radius		.5
 Ambient		0.5	0.5	0.0
-Diffuse		0.1	0.7	1.0
+Diffuse		0.7	0.1	.1
 Specular	1.0	1.0	1.0
 Exponent	2
 Reflectivity	0.4
@@ -75,7 +82,7 @@ SPHERE
 Center		.25 .6 -3
 Radius		.5
 Ambient		0.5	0.5	0.0
-Diffuse		0.1	0.7	1.0
+Diffuse		0.7	0.1	.1
 Specular	1.0	1.0	1.0
 Exponent	2
 Reflectivity	0.4
@@ -84,7 +91,7 @@ SPHERE
 Center		-.5 .8 -2
 Radius		.5
 Ambient		0.5	0.5	0.0
-Diffuse		0.1	0.7	1.0
+Diffuse		0.7	0.1	.1
 Specular	1.0	1.0	1.0
 Exponent	2
 Reflectivity	0.4

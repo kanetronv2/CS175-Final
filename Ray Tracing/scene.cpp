@@ -82,6 +82,10 @@ void parseSceneFile(const char *filename, Camera& camera, Scene& scene) {
       is >> ws >> subtag >> ws >> camera.width >> ws;
       is >> ws >> subtag >> ws >> camera.height >> ws;
       is >> ws >> subtag >> ws >> camera.samples >> ws;
+	  is >> ws >> subtag >> ws >> camera.focallength >> ws;
+	  is >> ws >> subtag >> ws >> camera.aperture >> ws;
+	  is >> ws >> subtag >> ws >> camera.focaldepth >> ws;
+	  is >> ws >> subtag >> ws >> camera.coc >> ws;
     }
     else {
       // do nothing

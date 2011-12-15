@@ -24,6 +24,10 @@ struct Camera {
   int width;
   int height;
   int samples;
+  int focallength;
+  double aperture;
+  double focaldepth;
+  double coc;
 };
 
 struct Scene {

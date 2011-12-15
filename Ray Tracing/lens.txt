@@ -1,0 +1,23 @@
+
+__Notes about the format of the file: ______________________________
+
+You may insert random comments like these, but such comments
+may not include the tokens 'CAMERA', 'PLANE', 'TRIANGLE', 'SPHERE', 
+or 'LIGHT'.  These are reserved tags for describing the scene.  
+After such tags are specified, the order and number of arguments 
+directly proceeding them are not optional.  
+
+The subtags used to give meaning to the following sets of numbers
+are not actually used by the parser.  The parser assumes the subtags
+appear in the exact order given below.  The only purpose of the
+subtags is to aid human readability.
+
+In between blocks, you may again write comments.  
+_____________________________________________________________________
+
+
+== Describe camera and lights =======================
+
+LENS
+FocalLength		50
+Aperture	1.4
