@@ -4,6 +4,7 @@
 #include "surface.h"
 #include "scene.h"
 #include "raycast.h"
+#include "perlin.h"
 
 using namespace std;
 
@@ -46,10 +47,23 @@ Cvec3 shadeLight(const Scene& scene, const Light& light, const Surface& surface,
 	const Cvec3 specular = mulElemWise(ks, lightIntensity) * pow(max(0., dot(bounceDirection, viewDirection)), n);
 	
 	Ray shadowRay(point + lightDirection * CS175_EPS,lightDirection);
-	Intersection in = rayCast(scene, shadowRay);                // compute the intersection point
+	Intersection in = rayCast(scene, shadowRay);                // compute the intersection poin
 
 	if (in.lambda > 0)
-		return Cvec3(0,0,0);      
+		return Cvec3(0,0,0);    
+
+	Cvec3 hitPoint = point + lightDirection * CS175_EPS + lightDirection * in.lambda;
+	Cvec3 output(0);
+	float noiseCoef = 0.0f;
+	if(surface.getMarbleToggle() != 0){
+		for(int level = 1; level < 10; level++){
+			noiseCoef += (1.0f/level) * fabsf(float(noise(level * .05 * hitPoint(0),
+				                                          level * .05 * hitPoint(1),
+														  level * .05 * hitPoint(2))));
+		}
+		output = (diffuse * noiseCoef) + (Cvec3(.7, .8, .9) * (1 - noiseCoef));
+		return output;
+	}
 
 	return diffuse + specular;
 }
@@ -89,7 +103,7 @@ Cvec3 rayTrace(const Scene& scene, const Ray& ray, const int level) {
   const Intersection in = rayCast(scene, ray);                // compute the intersection point
 
   if (in.lambda < 0 || level == 5)
-    return Cvec3(0,0,0);                    // if no intersection => return black (background color)
+    return Cvec3(.7,.7,.7);                    // if no intersection => return black (background color)
 
   return shade(scene, in.surfaceId, ray, in, level);         // ..otherwise compute shade and return that color
 }

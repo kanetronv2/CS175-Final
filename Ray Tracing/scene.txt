@@ -22,9 +22,9 @@ CAMERA
 FovY		60
 ScreenWidth 	640
 ScreenHeight	480
-NumSamples	1024
+NumSamples	128
 FocalLength	50
-Aperture	16.0
+Aperture	5.6
 FocalDepth	3
 CoC	.029
 
@@ -45,47 +45,52 @@ PLANE
 Point		0	-1.0	0
 Normal		0	1	0
 Ambient		0.1	0.1	0.1
-Diffuse		1	1	1
+Diffuse		.2	.5	.85
 Specular	0.6	0.6	0.6
 Exponent	4
-Reflectivity	.6
+Reflectivity	.4
+Marble          1
 
 SPHERE
 Center		2.5 0 -6
 Radius		0.5
 Ambient		0.5	0.5	0.0
-Diffuse		0.7	0.1	.1
+Diffuse		0.2	0.2	.4
 Specular	1.0	1.0	1.0
 Exponent	2
-Reflectivity	0.4
+Reflectivity	0.2
+Marble          0
 
 
 SPHERE
 Center		1.75 .2 -5
 Radius		.5
 Ambient		0.5	0.5	0.0
-Diffuse		0.7	0.1	.1
+Diffuse		0.3	0.6	.2
 Specular	1.0	1.0	1.0
 Exponent	2
-Reflectivity	0.4
+Reflectivity	0.2
+Marble          0
 
 SPHERE
 Center		1. .4 -4
 Radius		.5
 Ambient		0.5	0.5	0.0
-Diffuse		0.7	0.1	.1
+Diffuse		0.7	0.3	.78
 Specular	1.0	1.0	1.0
 Exponent	2
-Reflectivity	0.4
+Reflectivity	0.2
+Marble          0
 
 SPHERE
 Center		.25 .6 -3
 Radius		.5
 Ambient		0.5	0.5	0.0
-Diffuse		0.7	0.1	.1
+Diffuse		0.3	0.6	.2
 Specular	1.0	1.0	1.0
 Exponent	2
-Reflectivity	0.4
+Reflectivity	0.2
+Marble          0
 
 SPHERE
 Center		-.5 .8 -2
@@ -94,4 +99,5 @@ Ambient		0.5	0.5	0.0
 Diffuse		0.7	0.1	.1
 Specular	1.0	1.0	1.0
 Exponent	2
-Reflectivity	0.4
+Reflectivity	0.2
+Marble          0
