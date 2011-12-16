@@ -14,6 +14,7 @@
     <ProjectGuid>{F83AB71F-D4B0-4B9E-86F5-DC77C0D89D8D}</ProjectGuid>
     <RootNamespace>asst2</RootNamespace>
     <Keyword>Win32Proj</Keyword>
+    <ProjectName>Final</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -92,7 +93,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="asst3.cpp" />
+    <ClCompile Include="Final.cpp" />
     <ClCompile Include="glsupport.cpp" />
     <ClCompile Include="ppm.cpp" />
   </ItemGroup>

@@ -45,12 +45,12 @@ Cvec3 shadeLight(const Scene& scene, const Light& light, const Surface& surface,
 
 	const Cvec3 diffuse = mulElemWise(kd, lightIntensity) * max(0., dot(normal, lightDirection));
 	const Cvec3 specular = mulElemWise(ks, lightIntensity) * pow(max(0., dot(bounceDirection, viewDirection)), n);
-	
-	Ray shadowRay(point + lightDirection * CS175_EPS,lightDirection);
-	Intersection in = rayCast(scene, shadowRay);                // compute the intersection poin
 
-	if (in.lambda > 0)
-		return Cvec3(0,0,0);    
+	Ray shadowRay(point + lightDirection * CS175_EPS,lightDirection);
+	Intersection in = rayCast(scene, shadowRay);
+	
+	if(in.lambda>0)
+		return Cvec3(0);
 
 	Cvec3 hitPoint = point + lightDirection * CS175_EPS + lightDirection * in.lambda;
 	Cvec3 output(0);
@@ -64,7 +64,7 @@ Cvec3 shadeLight(const Scene& scene, const Light& light, const Surface& surface,
 		output = (diffuse * noiseCoef) + (Cvec3(.7, .8, .9) * (1 - noiseCoef));
 		return output;
 	}
-
+	
 	return diffuse + specular;
 }
 

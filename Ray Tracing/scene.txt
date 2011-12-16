@@ -49,7 +49,7 @@ Diffuse		.2	.5	.85
 Specular	0.6	0.6	0.6
 Exponent	4
 Reflectivity	.4
-Marble          1
+Marble          0
 
 SPHERE
 Center		2.5 0 -6

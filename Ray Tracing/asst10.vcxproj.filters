@@ -10,9 +10,6 @@
     <ClCompile Include="ppm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="asst10.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="raycast.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -20,6 +17,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="perlin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="final.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
