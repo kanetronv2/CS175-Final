@@ -10,13 +10,16 @@
     <ClCompile Include="ppm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="asst10.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="raycast.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="perlin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="final.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -37,6 +40,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="ray.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="perlin.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

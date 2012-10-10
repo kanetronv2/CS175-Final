@@ -15,6 +15,7 @@
     <RootNamespace>asst10
     </RootNamespace>
     <Keyword>Win32Proj</Keyword>
+    <ProjectName>final</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -93,13 +94,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="asst10.cpp" />
+    <ClCompile Include="final.cpp" />
+    <ClCompile Include="perlin.cpp" />
     <ClCompile Include="ppm.cpp" />
     <ClCompile Include="raycast.cpp" />
     <ClCompile Include="scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cvec.h" />
+    <ClInclude Include="perlin.h" />
     <ClInclude Include="ppm.h" />
     <ClInclude Include="ray.h" />
     <ClInclude Include="raycast.h" />

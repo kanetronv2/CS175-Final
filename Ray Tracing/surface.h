@@ -12,14 +12,15 @@ class Surface {
   Cvec3 ks_;
   int exponentSpecular_;
   double mirrorCoef_;
+  int marbleToggle_;
 
 public:
   Surface()
-    : ka_(0.1,0.1,0.1), kd_(0.8,0.8,0.8), ks_(0,0,0), exponentSpecular_(32), mirrorCoef_(0)
+    : ka_(0.1,0.1,0.1), kd_(0.8,0.8,0.8), ks_(0,0,0), exponentSpecular_(32), mirrorCoef_(0), marbleToggle_(0)
   {}
 
-  Surface(const Cvec3& ka, const Cvec3& kd, const Cvec3& ks, const int exponentSpecular, const double mirrorCoef)
-    : ka_(ka), kd_(kd), ks_(ks), exponentSpecular_(exponentSpecular), mirrorCoef_(mirrorCoef)
+  Surface(const Cvec3& ka, const Cvec3& kd, const Cvec3& ks, const int exponentSpecular, const double mirrorCoef, const int marbleToggle)
+    : ka_(ka), kd_(kd), ks_(ks), exponentSpecular_(exponentSpecular), mirrorCoef_(mirrorCoef), marbleToggle_(marbleToggle)
   {}
 
   virtual ~Surface() {}
@@ -44,6 +45,9 @@ public:
   double getMirrorCoef() const {
     return mirrorCoef_;
   }
+  int getMarbleToggle() const{
+	return marbleToggle_;
+  }
 };
 
 
@@ -54,8 +58,8 @@ class Sphere : public Surface {
 
 public:
   Sphere(const Cvec3& center, const double radius,
-         const Cvec3& ka, const Cvec3& kd, const Cvec3& ks, const int exponentSpecular, const double mirrorCoef)
-    : Surface(ka, kd, ks, exponentSpecular, mirrorCoef), center_(center), radius_(radius)
+         const Cvec3& ka, const Cvec3& kd, const Cvec3& ks, const int exponentSpecular, const double mirrorCoef, const int marbleToggle)
+    : Surface(ka, kd, ks, exponentSpecular, mirrorCoef, marbleToggle), center_(center), radius_(radius)
   {}
 
   Sphere(const Cvec3& center, const double radius)
@@ -114,8 +118,8 @@ class Triangle : public Surface {
 
 public:
   Triangle(const Cvec3& p0, const Cvec3& p1, const Cvec3& p2,
-           const Cvec3& ka, const Cvec3& kd, const Cvec3& ks, const int exponentSpecular, const double mirrorCoef)
-    : Surface(ka, kd, ks, exponentSpecular, mirrorCoef) {
+           const Cvec3& ka, const Cvec3& kd, const Cvec3& ks, const int exponentSpecular, const double mirrorCoef, const int marbleToggle)
+    : Surface(ka, kd, ks, exponentSpecular, mirrorCoef, marbleToggle) {
     point[0] = p0;
     point[1] = p1;
     point[2] = p2;
@@ -176,8 +180,8 @@ class Plane : public Surface {
 
 public:
   Plane(const Cvec3& point, const Cvec3& normal,
-        const Cvec3& ka, const Cvec3& kd, const Cvec3& ks, const int exponentSpecular, const double mirrorCoef)
-    : Surface(ka, kd, ks, exponentSpecular, mirrorCoef), point(point), normal_(normal)
+        const Cvec3& ka, const Cvec3& kd, const Cvec3& ks, const int exponentSpecular, const double mirrorCoef, const int marbleToggle)
+    : Surface(ka, kd, ks, exponentSpecular, mirrorCoef, marbleToggle), point(point), normal_(normal)
   {}
 
   Plane(const Cvec3& point, const Cvec3& normal)

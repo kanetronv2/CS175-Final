@@ -16,7 +16,7 @@
     <ClCompile Include="glsupport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="asst3.cpp">
+    <ClCompile Include="Final.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

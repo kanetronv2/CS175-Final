@@ -24,6 +24,7 @@ void parseSceneFile(const char *filename, Camera& camera, Scene& scene) {
       string subtag;
       int exponent;
       double mirror;
+	  int marble;
 
       for (int i=0; i<6; i++) {
         is >> ws >> subtag >> ws >>
@@ -31,13 +32,15 @@ void parseSceneFile(const char *filename, Camera& camera, Scene& scene) {
       }
       is >> ws >> subtag >> ws >> exponent >> ws;
       is >> ws >> subtag >> ws >> mirror >> ws;
-      surfaces.push_back(shared_ptr<Surface>(new Triangle(data[0], data[1], data[2], data[3], data[4], data[5], exponent, mirror)));
+	  is >> ws >> subtag >> ws >> marble >> ws;
+      surfaces.push_back(shared_ptr<Surface>(new Triangle(data[0], data[1], data[2], data[3], data[4], data[5], exponent, mirror, marble)));
     }
     else if (tag == string("PLANE")) {
       Cvec3 data[5];
       string subtag;
       int exponent;
       double mirror;
+	  int marble;
 
       for (int i=0; i<5; i++) {
         is >> ws >> subtag >> ws >>
@@ -45,7 +48,8 @@ void parseSceneFile(const char *filename, Camera& camera, Scene& scene) {
       }
       is >> ws >> subtag >> ws >> exponent >> ws;
       is >> ws >> subtag >> ws >> mirror >> ws;
-      surfaces.push_back(shared_ptr<Surface>(new Plane(data[0], data[1], data[2], data[3], data[4], exponent, mirror)));
+	  is >> ws >> subtag >> ws >> marble >> ws;
+      surfaces.push_back(shared_ptr<Surface>(new Plane(data[0], data[1], data[2], data[3], data[4], exponent, mirror, marble)));
     }
     else if (tag == string("SPHERE")) {
       Cvec3 center;
@@ -54,6 +58,7 @@ void parseSceneFile(const char *filename, Camera& camera, Scene& scene) {
       float radius;
       int exponent;
       double mirror;
+	  int marble;
 
       is >> ws >> subtag >> ws >>
       center[0] >> ws >> center[1] >> ws >> center[2] >> ws;
@@ -64,7 +69,8 @@ void parseSceneFile(const char *filename, Camera& camera, Scene& scene) {
       }
       is >> ws >> subtag >> ws >> exponent >> ws;
       is >> ws >> subtag >> ws >> mirror >> ws;
-      surfaces.push_back(shared_ptr<Surface>(new Sphere(center, radius, data[0], data[1], data[2], exponent, mirror)));
+	  is >> ws >> subtag >> ws >> marble >> ws;
+      surfaces.push_back(shared_ptr<Surface>(new Sphere(center, radius, data[0], data[1], data[2], exponent, mirror, marble)));
     }
     else if (tag == string("LIGHT")) {
       Cvec3 data[2];
